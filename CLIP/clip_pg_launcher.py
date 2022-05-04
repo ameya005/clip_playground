@@ -150,8 +150,8 @@ def CLIP_predictor(img, text_labels, image_enc_ch, analysis_type):
                clusterer=cluster.AgglomerativeClustering(n_clusters=2, affinity='cosine', linkage='complete')
                )
         result_html = mapper.visualize(G,
-                    #  lens=pred_probs[:,0].cpu().detach().numpy(),
-                    #  lens_names=["Margin"],
+                        lens=margin.cpu().detach().numpy(),
+                        lens_names=["Margin"],
                      #custom_tooltips=imagenet_templates,
                      #X_names=imagenet_templates,
                     #  color_values=col_vals,
@@ -178,7 +178,8 @@ def CLIP_kmap_graph():
 
 
 clip_choices = clip.available_models()
-analysis_choices = ['Prompts', 'Synonyms', 'Negation']
+#analysis_choices = ['Prompts', 'Synonyms', 'Negation']
+analysis_choices = ['Prompts']
 
 demo = gr.Interface(CLIP_predictor, ["image", "text", gr.inputs.Radio(
     clip_choices, default=clip_choices[0], label='Image Encoder'),
